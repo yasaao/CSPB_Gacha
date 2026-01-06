@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PB LUCK ROYALE - PREMIUM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oswald:wght@300;400;700&display=swap');
+      
+      :root {
+        --color-mythic: #facc15;
+        --color-epic: #a855f7;
+        --color-cyan: #06b6d4;
+        --bg-deep: #05010a;
+        --vortex-speed: 60s;
+      }
+
+      body {
+        font-family: 'Oswald', sans-serif;
+        background-color: var(--bg-deep);
+        color: white;
+        margin: 0;
+        overflow: hidden;
+        height: 100vh;
+        user-select: none;
+      }
+
+      /* Scrollbar */
+      .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+      .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+      .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--color-cyan); border-radius: 10px; }
+
+      /* Advanced Singularity Vortex */
+      .vortex-container {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: -1;
+        background: radial-gradient(circle at center, #1a0b2e 0%, #05010a 100%);
+        perspective: 1200px;
+      }
+
+      .vortex-layer {
+        position: absolute;
+        width: 150vmax;
+        height: 150vmax;
+        background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+        opacity: 0.2;
+        filter: hue-rotate(280deg);
+        transition: transform 0.5s ease-out;
+      }
+
+      .vortex-1 { animation: rotateVortex var(--vortex-speed) linear infinite; }
+      .vortex-2 { animation: rotateVortex calc(var(--vortex-speed) * 0.7) linear reverse infinite; opacity: 0.15; transform: scale(1.3); }
+      
+      @keyframes rotateVortex {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      .singularity-core {
+        position: absolute;
+        width: 700px;
+        height: 700px;
+        background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%);
+        border-radius: 50%;
+        filter: blur(50px);
+        animation: pulseCore 5s ease-in-out infinite;
+      }
+
+      @keyframes pulseCore {
+        0%, 100% { transform: scale(1); opacity: 0.4; }
+        50% { transform: scale(1.15); opacity: 0.7; }
+      }
+
+      /* Custom Hexagon Styling */
+      .hex-wrapper {
+        position: relative;
+        width: 90px;
+        height: 100px;
+        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      .hex-inner {
+        position: absolute;
+        inset: 2px;
+        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        background: #0a0a0f;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .hex-active {
+        transform: scale(1.35);
+        filter: drop-shadow(0 0 30px var(--color-cyan));
+        z-index: 50;
+      }
+
+      .hex-active .hex-inner {
+        background: rgba(6, 182, 212, 0.6);
+        border: 2px solid var(--color-cyan);
+      }
+
+      .hex-trail {
+        transform: scale(1.15);
+        opacity: 0.7;
+      }
+      .hex-trail .hex-inner {
+        background: rgba(6, 182, 212, 0.25);
+        border: 1px solid rgba(6, 182, 212, 0.5);
+      }
+
+      /* Parallelogram Buttons */
+      .btn-para {
+        clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+        transition: all 0.2s ease;
+      }
+      .btn-para:active { transform: translateY(2px) scale(0.98); }
+
+      /* Screen Effects */
+      @keyframes shake {
+        0%, 100% { transform: translate(0, 0); }
+        10%, 30%, 50%, 70%, 90% { transform: translate(-4px, -2px); }
+        20%, 40%, 60%, 80% { transform: translate(4px, 2px); }
+      }
+      .screen-shake { animation: shake 0.3s cubic-bezier(.36,.07,.19,.97) both; }
+
+      @keyframes glitch {
+        0% { transform: translate(0); clip-path: inset(0% 0% 0% 0%); }
+        20% { transform: translate(-5px, 5px); clip-path: inset(10% 0% 20% 0%); }
+        40% { transform: translate(5px, -5px); clip-path: inset(30% 0% 10% 0%); }
+        60% { transform: translate(-5px, 0); clip-path: inset(50% 0% 5% 0%); }
+        80% { transform: translate(5px, 5px); clip-path: inset(0% 0% 40% 0%); }
+        100% { transform: translate(0); clip-path: inset(0% 0% 0% 0%); }
+      }
+      .animate-glitch { animation: glitch 0.3s steps(2, end) infinite; }
+
+      @keyframes hologram {
+        0% { opacity: 0; transform: translateY(20px) scaleY(0); filter: brightness(2); }
+        50% { opacity: 0.5; transform: translateY(0) scaleY(1.2); filter: brightness(1.5); }
+        100% { opacity: 1; transform: translateY(0) scaleY(1); filter: brightness(1); }
+      }
+      .animate-hologram { animation: hologram 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+      @keyframes scanline {
+        0% { transform: translateY(-100%); }
+        100% { transform: translateY(100%); }
+      }
+      .scanline-effect {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(to bottom, transparent, rgba(6, 182, 212, 0.2) 50%, transparent);
+        height: 40px;
+        width: 100%;
+        animation: scanline 2s linear infinite;
+        pointer-events: none;
+        z-index: 5;
+      }
+
+      @keyframes shimmer {
+        from { transform: translateX(-100%); }
+        to { transform: translateX(100%); }
+      }
+
+      @keyframes slideInRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+
+      @keyframes slideOutRight {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+      }
+
+      .animate-slide-in-right {
+        animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      .animate-slide-out-right {
+        animation: slideOutRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      /* Global Screen Overlays */
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.03));
+        background-size: 100% 2px, 3px 100%;
+        pointer-events: none;
+        z-index: 999;
+      }
+
+      .font-military { font-family: 'Orbitron', sans-serif; }
+      
+      .shaking-intense { animation: shake 0.15s infinite; }
+    </style>
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@^19.2.3",
+        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+        "react/": "https://esm.sh/react@^19.2.3/"
+      }
+    }
+    </script>
+  <link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
