@@ -1,221 +1,231 @@
-
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PB LUCK ROYALE - PREMIUM</title>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Gacha System — CSPB</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oswald:wght@300;400;700&display=swap');
-      
-      :root {
-        --color-mythic: #facc15;
-        --color-epic: #a855f7;
-        --color-cyan: #06b6d4;
-        --bg-deep: #05010a;
-        --vortex-speed: 60s;
-      }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #09090b;
+            color: #fafafa;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at top right, #1e1b4b, transparent), 
+                              radial-gradient(circle at bottom left, #020617, transparent);
+            min-height: 100vh;
+        }
 
-      body {
-        font-family: 'Oswald', sans-serif;
-        background-color: var(--bg-deep);
-        color: white;
-        margin: 0;
-        overflow: hidden;
-        height: 100vh;
-        user-select: none;
-      }
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
 
-      /* Scrollbar */
-      .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-      .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
-      .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--color-cyan); border-radius: 10px; }
+        .gacha-card {
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
 
-      /* Advanced Singularity Vortex */
-      .vortex-container {
-        position: fixed;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: -1;
-        background: radial-gradient(circle at center, #1a0b2e 0%, #05010a 100%);
-        perspective: 1200px;
-      }
+        /* Legendary Effect */
+        .rarity-legendary {
+            border: 2px solid #fbbf24;
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.3);
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(0,0,0,0.8));
+        }
 
-      .vortex-layer {
-        position: absolute;
-        width: 150vmax;
-        height: 150vmax;
-        background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-        opacity: 0.2;
-        filter: hue-rotate(280deg);
-        transition: transform 0.5s ease-out;
-      }
+        .legendary-glow {
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(251, 191, 36, 0.2), transparent 40%);
+            animation: rotate 4s linear infinite;
+        }
 
-      .vortex-1 { animation: rotateVortex var(--vortex-speed) linear infinite; }
-      .vortex-2 { animation: rotateVortex calc(var(--vortex-speed) * 0.7) linear reverse infinite; opacity: 0.15; transform: scale(1.3); }
-      
-      @keyframes rotateVortex {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-      }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
 
-      .singularity-core {
-        position: absolute;
-        width: 700px;
-        height: 700px;
-        background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%);
-        border-radius: 50%;
-        filter: blur(50px);
-        animation: pulseCore 5s ease-in-out infinite;
-      }
+        .btn-pull {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
 
-      @keyframes pulseCore {
-        0%, 100% { transform: scale(1); opacity: 0.4; }
-        50% { transform: scale(1.15); opacity: 0.7; }
-      }
+        .btn-pull:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+        }
 
-      /* Custom Hexagon Styling */
-      .hex-wrapper {
-        position: relative;
-        width: 90px;
-        height: 100px;
-        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-        transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      }
+        .btn-pull:active { transform: scale(0.95); }
 
-      .hex-inner {
-        position: absolute;
-        inset: 2px;
-        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-        background: #0a0a0f;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid rgba(255,255,255,0.08);
-      }
+        /* Hidden Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 10px; }
 
-      .hex-active {
-        transform: scale(1.35);
-        filter: drop-shadow(0 0 30px var(--color-cyan));
-        z-index: 50;
-      }
-
-      .hex-active .hex-inner {
-        background: rgba(6, 182, 212, 0.6);
-        border: 2px solid var(--color-cyan);
-      }
-
-      .hex-trail {
-        transform: scale(1.15);
-        opacity: 0.7;
-      }
-      .hex-trail .hex-inner {
-        background: rgba(6, 182, 212, 0.25);
-        border: 1px solid rgba(6, 182, 212, 0.5);
-      }
-
-      /* Parallelogram Buttons */
-      .btn-para {
-        clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
-        transition: all 0.2s ease;
-      }
-      .btn-para:active { transform: translateY(2px) scale(0.98); }
-
-      /* Screen Effects */
-      @keyframes shake {
-        0%, 100% { transform: translate(0, 0); }
-        10%, 30%, 50%, 70%, 90% { transform: translate(-4px, -2px); }
-        20%, 40%, 60%, 80% { transform: translate(4px, 2px); }
-      }
-      .screen-shake { animation: shake 0.3s cubic-bezier(.36,.07,.19,.97) both; }
-
-      @keyframes glitch {
-        0% { transform: translate(0); clip-path: inset(0% 0% 0% 0%); }
-        20% { transform: translate(-5px, 5px); clip-path: inset(10% 0% 20% 0%); }
-        40% { transform: translate(5px, -5px); clip-path: inset(30% 0% 10% 0%); }
-        60% { transform: translate(-5px, 0); clip-path: inset(50% 0% 5% 0%); }
-        80% { transform: translate(5px, 5px); clip-path: inset(0% 0% 40% 0%); }
-        100% { transform: translate(0); clip-path: inset(0% 0% 0% 0%); }
-      }
-      .animate-glitch { animation: glitch 0.3s steps(2, end) infinite; }
-
-      @keyframes hologram {
-        0% { opacity: 0; transform: translateY(20px) scaleY(0); filter: brightness(2); }
-        50% { opacity: 0.5; transform: translateY(0) scaleY(1.2); filter: brightness(1.5); }
-        100% { opacity: 1; transform: translateY(0) scaleY(1); filter: brightness(1); }
-      }
-      .animate-hologram { animation: hologram 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-
-      @keyframes scanline {
-        0% { transform: translateY(-100%); }
-        100% { transform: translateY(100%); }
-      }
-      .scanline-effect {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: linear-gradient(to bottom, transparent, rgba(6, 182, 212, 0.2) 50%, transparent);
-        height: 40px;
-        width: 100%;
-        animation: scanline 2s linear infinite;
-        pointer-events: none;
-        z-index: 5;
-      }
-
-      @keyframes shimmer {
-        from { transform: translateX(-100%); }
-        to { transform: translateX(100%); }
-      }
-
-      @keyframes slideInRight {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-      }
-
-      @keyframes slideOutRight {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(100%); opacity: 0; }
-      }
-
-      .animate-slide-in-right {
-        animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      }
-
-      .animate-slide-out-right {
-        animation: slideOutRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      }
-
-      /* Global Screen Overlays */
-      body::after {
-        content: "";
-        position: fixed;
-        inset: 0;
-        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.03));
-        background-size: 100% 2px, 3px 100%;
-        pointer-events: none;
-        z-index: 999;
-      }
-
-      .font-military { font-family: 'Orbitron', sans-serif; }
-      
-      .shaking-intense { animation: shake 0.15s infinite; }
+        #reveal-area {
+            perspective: 1000px;
+        }
     </style>
-    <script type="importmap">
-    {
-      "imports": {
-        "react": "https://esm.sh/react@^19.2.3",
-        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-        "react/": "https://esm.sh/react@^19.2.3/"
-      }
-    }
-    </script>
-  <link rel="stylesheet" href="/index.css">
 </head>
-  <body>
-    <div id="root"></div>
-  <script type="module" src="/index.tsx"></script>
+<body class="p-6">
+
+    <!-- Header -->
+    <header class="max-w-6xl mx-auto flex justify-between items-center mb-12 animate__animated animate__fadeIn">
+        <div>
+            <h1 class="text-3xl font-extrabold tracking-tighter italic">CSPB<span class="text-blue-500">GACHA</span></h1>
+            <p class="text-zinc-500 text-sm">Experience the premium loot system</p>
+        </div>
+        <div class="glass px-6 py-2 rounded-full flex items-center gap-4">
+            <span class="text-zinc-400 text-xs uppercase tracking-widest font-bold">Points</span>
+            <span id="balance" class="text-xl font-semibold text-blue-400">50,000</span>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Left: Inventory/History -->
+        <div class="lg:col-span-1 space-y-4 animate__animated animate__fadeInLeft">
+            <h2 class="text-lg font-bold flex items-center gap-2">
+                <span class="w-2 h-6 bg-blue-600 rounded-full"></span>
+                Recent Pulls
+            </h2>
+            <div id="history" class="space-y-3 max-h-[500px] overflow-y-auto pr-2 text-sm">
+                <!-- History Items -->
+                <div class="text-zinc-500 italic text-center py-10">No items pulled yet.</div>
+            </div>
+        </div>
+
+        <!-- Center: Gacha Machine -->
+        <div class="lg:col-span-2 space-y-8">
+            <div id="display-area" class="relative glass rounded-3xl h-[400px] flex items-center justify-center overflow-hidden">
+                <!-- Idle State -->
+                <div id="idle-msg" class="text-center z-10">
+                    <div class="w-24 h-24 bg-blue-500/10 rounded-full mx-auto mb-4 flex items-center justify-center animate-pulse">
+                        <svg class="w-10 h-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-light text-zinc-400">Ready to unlock new gear?</h3>
+                </div>
+
+                <!-- Reveal Result Area (Hidden by default) -->
+                <div id="reveal-area" class="hidden text-center z-20">
+                    <!-- Result Card will be injected here -->
+                </div>
+
+                <!-- Background Sparkles (Canvas or CSS) -->
+                <div class="absolute inset-0 opacity-20 pointer-events-none" id="sparkles"></div>
+            </div>
+
+            <div class="flex flex-col items-center gap-4">
+                <button onclick="pullGacha()" id="pull-btn" class="btn-pull px-12 py-4 rounded-xl text-white font-bold text-lg shadow-xl">
+                    Open Crate (1,000 P)
+                </button>
+                <p class="text-zinc-500 text-xs">Odds: Common (70%), Rare (20%), Epic (9%), Legendary (1%)</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Audio Elements -->
+    <audio id="snd-click" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"></audio>
+    <audio id="snd-reveal" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3"></audio>
+    <audio id="snd-legendary" src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3"></audio>
+
+    <script>
+        const items = [
+            { name: "P90 GRS", rarity: "common", color: "text-zinc-400" },
+            { name: "Kriss S.V", rarity: "rare", color: "text-blue-400" },
+            { name: "AUG A3 Blitz", rarity: "epic", color: "text-purple-400" },
+            { name: "OA-93 Gold", rarity: "legendary", color: "text-yellow-400" },
+            { name: "Tactilite T2", rarity: "epic", color: "text-purple-400" },
+            { name: "Cheytac M200", rarity: "rare", color: "text-blue-400" }
+        ];
+
+        let balance = 50000;
+
+        function playSound(id) {
+            const snd = document.getElementById(id);
+            snd.currentTime = 0;
+            snd.play();
+        }
+
+        function pullGacha() {
+            if (balance < 1000) return alert("Insufficient points!");
+
+            // UI Interaction
+            const btn = document.getElementById('pull-btn');
+            const idleMsg = document.getElementById('idle-msg');
+            const revealArea = document.getElementById('reveal-area');
+            
+            btn.disabled = true;
+            btn.innerText = "Opening...";
+            playSound('snd-click');
+
+            // Logic: Random Rarity
+            const rng = Math.random() * 100;
+            let result;
+
+            if (rng < 1) result = items[3]; // Legendary
+            else if (rng < 10) result = items[Math.random() > 0.5 ? 2 : 4]; // Epic
+            else if (rng < 30) result = items[Math.random() > 0.5 ? 1 : 5]; // Rare
+            else result = items[0]; // Common
+
+            // Start Animation Sequence
+            idleMsg.classList.add('animate__animated', 'animate__fadeOutDown');
+            
+            setTimeout(() => {
+                idleMsg.classList.add('hidden');
+                revealArea.classList.remove('hidden');
+                showResult(result);
+                
+                // Update Balance
+                balance -= 1000;
+                document.getElementById('balance').innerText = balance.toLocaleString();
+                
+                btn.disabled = false;
+                btn.innerText = "Open Crate (1,000 P)";
+            }, 600);
+        }
+
+        function showResult(item) {
+            const revealArea = document.getElementById('reveal-area');
+            const history = document.getElementById('history');
+
+            // Reset Animation
+            revealArea.innerHTML = '';
+            
+            const isLegendary = item.rarity === 'legendary';
+            if (isLegendary) playSound('snd-legendary');
+            else playSound('snd-reveal');
+
+            const cardHtml = `
+                <div class="gacha-card ${isLegendary ? 'rarity-legendary' : 'glass'} p-8 rounded-2xl animate__animated animate__zoomInDown">
+                    ${isLegendary ? '<div class="legendary-glow"></div>' : ''}
+                    <div class="relative z-10">
+                        <p class="text-xs uppercase tracking-[0.3em] mb-2 ${item.color} font-bold">${item.rarity}</p>
+                        <h2 class="text-4xl font-extrabold mb-4">${item.name}</h2>
+                        <div class="w-32 h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent mx-auto"></div>
+                    </div>
+                </div>
+            `;
+            
+            revealArea.innerHTML = cardHtml;
+
+            // Add to History
+            if (history.querySelector('div.italic')) history.innerHTML = '';
+            const historyItem = document.createElement('div');
+            historyItem.className = `glass p-3 rounded-lg flex justify-between items-center animate__animated animate__fadeInLeft`;
+            historyItem.innerHTML = `
+                <span class="font-medium">${item.name}</span>
+                <span class="text-[10px] uppercase font-bold px-2 py-1 rounded bg-white/5 ${item.color}">${item.rarity}</span>
+            `;
+            history.prepend(historyItem);
+        }
+    </script>
 </body>
 </html>
